@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique - Marcketing Guy Partener</title>
+    <!-- On inclut le CSS global pour garder les variables et la police, puis le CSS spécifique aux produits -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="products.css">
+</head>
+<body>
+    <header>
+        <h1>Boutique M.G.P.</h1>
+        <nav>
+            <ul>
+                <li><a href="html.html">Accueil</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="products.html" class="active" style="border-bottom: 2px solid var(--primary); color: var(--primary);">Boutique</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="store-main">
+        <section class="store-header">
+            <h2>Notre Catalogue</h2>
+            <div class="category-filters" id="category-filters">
+                <button class="filter-btn active" data-category="all">Tout</button>
+                <button class="filter-btn" data-category="electronique">Électronique</button>
+                <button class="filter-btn" data-category="services">Services Pros</button>
+                <button class="filter-btn" data-category="mode">Mode</button>
+            </div>
+        </section>
+
+        <!-- Grille des produits chargée dynamiquement via Javascript -->
+        <section class="products-grid" id="products-grid">
+            <!-- Les cartes produits seront insérées ici par products.js -->
+        </section>
+    </main>
+
+    <!-- Modale de Détails du produit -->
+    <div id="product-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="close-details">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <div id="modal-img-wrapper" style="font-size: 6rem; text-align:center;"></div>
+                </div>
+                <div class="modal-info">
+                    <h2 id="modal-title">Titre du Produit</h2>
+                    <p class="modal-price" id="modal-price">0 FCFA</p>
+                    <div class="modal-desc" id="modal-desc">Description longue ici...</div>
+                    <div class="modal-actions">
+                        <!-- Bouton WhatsApp avec icône (Ouvre WhatsApp Web ou App) -->
+                        <a href="#" id="modal-whatsapp" target="_blank" class="btn btn-whatsapp">
+                            💬 Discuter sur WhatsApp
+                        </a>
+                        <button id="modal-pay-btn" class="btn btn-primary">
+                            🛒 Payer Maintenant
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale de Paiement (Choix Méthode) -->
+    <div id="payment-modal" class="modal hidden">
+        <div class="modal-content payment-content">
+            <span class="close-btn" id="close-payment">&times;</span>
+            <h2>Mode de Paiement</h2>
+            <p>Pour : <strong id="payment-product-name">...</strong></p>
+            <p class="payment-amount">Total : <strong id="payment-amount">0 FCFA</strong></p>
+            
+            <div class="payment-methods">
+                <button class="pay-method-btn" data-method="orange">
+                    <div class="method-icon orange-bg">OM</div>
+                    Orange Money
+                </button>
+                <button class="pay-method-btn" data-method="mtn">
+                    <div class="method-icon mtn-bg">MOMO</div>
+                    MTN Money
+                </button>
+                <button class="pay-method-btn" data-method="moov">
+                    <div class="method-icon moov-bg">FLOOZ</div>
+                    Moov
+                </button>
+                <button class="pay-method-btn" data-method="carte">
+                    <div class="method-icon card-bg">💳</div>
+                    Carte
+                </button>
+            </div>
+            
+            <div id="payment-form-container" class="hidden">
+                <h3 id="selected-method-title">Paiement</h3>
+                <form id="payment-form">
+                    <div class="input-group">
+                        <label for="payment-phone" id="payment-input-label">Numéro</label>
+                        <input type="text" id="payment-phone" placeholder="Entrez vos informations" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Valider le Paiement</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Marcketing Guy Partener Web. Services E-commerce.</p>
+    </footer>
+
+    <!-- Script de logique E-commerce -->
+    <script src="products.js"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GÉRANT - Admin Backoffice</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="Styles.css">
+    <style>
+        body { flex-direction: row; background: #f1f5f9; margin: 0; }
+        
+        /* Sidebar Admin */
+        .sidebar { width: 300px; background: #1e293b; color: white; height: 100vh; display: flex; flex-direction: column; position: fixed; z-index: 100; overflow-y: auto; }
+        .sidebar h2 { background: #0f172a; padding: 1.5rem; text-align: center; font-size: 1.5rem; font-weight: 700; margin: 0; color: #38bdf8; flex-shrink: 0; }
+        .sidebar nav { padding: 1rem 0; flex-shrink: 0; border-bottom: 1px solid #334155; }
+        .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+        .sidebar nav a { display: flex; align-items: center; padding: 1rem 1.5rem; color: #cbd5e1; text-decoration: none; font-weight: 500; transition: 0.2s; border-left: 4px solid transparent; }
+        .sidebar nav a:hover, .sidebar nav a.active { background: #334155; color: white; border-left: 4px solid #38bdf8; }
+        .logout-btn { background: #ef4444; color: white; border: none; padding: 1rem; width: 100%; cursor: pointer; font-weight: 600; font-size: 1.1rem; transition: 0.3s; margin-top: auto; flex-shrink: 0;}
+        .logout-btn:hover { background: #dc2626; }
+        
+        /* Connectés en Direct */
+        .live-users { background: #0f172a; padding: 1.5rem; flex-shrink: 0; }
+        .live-users h3 { font-size: 0.9rem; text-transform: uppercase; color: #94a3b8; margin-bottom: 1rem; letter-spacing: 1px; }
+        .live-user-item { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; align-items: center; }
+        .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 5px #22c55e; }
+        .live-desc { font-size: 0.85rem; color: #f8fafc; }
+        .live-time { font-size: 0.75rem; color: #64748b; }
+
+        /* Contenu Principal */
+        .admin-content { margin-left: 300px; flex: 1; padding: 2rem; min-height: 100vh; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #cbd5e1; padding-bottom: 1rem; }
+        .admin-header h1 { color: #0f172a; font-size: 1.8rem; font-weight: 700; margin:0;}
+        
+        /* Sections */
+        .panel-section { display: none; background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 2rem; min-height: 70vh; }
+        .panel-section.active { display: block; }
+        .section-title { color: #1e293b; margin-bottom: 1.5rem; font-size: 1.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f8fafc; color: #475569; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; }
+        tr:hover { background: #f1f5f9; }
+        
+        /* Badges & Boutons Admin */
+        .badge { padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .bg-green { background: #dcfce7; color: #166534; }
+        .bg-red { background: #fee2e2; color: #b91c1c; }
+        .bg-blue { background: #e0f2fe; color: #0369a1; }
+        
+        .btn-sm { padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; border: none; color: white; font-weight: 500; }
+        .btn-danger { background: #ef4444; }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-warning { background: #f59e0b; color: white; }
+        .btn-success { background: #10b981; }
+
+        /* Formulaire Produit Explorateur */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .full-width { grid-column: span 2; }
+        .admin-input { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: 'Inter'; margin-top: 0.5rem; background:white;}
+        .admin-label { font-weight: 600; color: #334155; }
+        
+        @media (max-width: 900px) { 
+            body { flex-direction: column; } 
+            .sidebar { width: 100%; height: auto; position: relative; z-index: 10; display:block; padding-bottom: 0;} 
+            .admin-content { margin-left: 0; padding: 1rem; } 
+            .form-grid { grid-template-columns: 1fr; }
+            .admin-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>CENTRE GÉRANT</h2>
+        <nav>
+            <ul>
+                <li><a href="#" class="tab-link active" data-target="dashboard">📊 Statistiques & IP</a></li>
+                <li><a href="#" class="tab-link" data-target="products">📦 Explorateur Produits</a></li>
+                <li><a href="#" class="tab-link" data-target="security">🛡️ Gérer les Clients</a></li>
+                <li><a href="#" class="tab-link" data-target="applications">🛵 Dossiers Livreurs</a></li>
+                <li><a href="html.html" style="color:#94a3b8; margin-top:1rem;">🌍 Voir le Site Public</a></li>
+            </ul>
+        </nav>
+        
+        <div class="live-users">
+            <h3>🔴 Clients en Ligne (<span id="online-count">0</span>)</h3>
+            <div id="live-container">
+                <p style="font-size: 0.85rem; color:#64748b;">Aucun client connecté.</p>
+            </div>
+        </div>
+
+        <button class="logout-btn" id="admin-logout">Déconnexion Gérant</button>
+    </aside>
+
+    <main class="admin-content">
+        <header class="admin-header">
+            <h1>Console d'Administration</h1>
+            <div>
+                <span class="badge bg-green" style="font-size: 1rem; padding: 0.5rem 1rem;">Système MGP Sécurisé En Ligne</span>
+            </div>
+        </header>
+
+        <!-- DASHBOARD STATS & CONNEXIONS RECENTES -->
+        <section id="dashboard" class="panel-section active">
+            <h2 class="section-title">Aperçu Global</h2>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                <div style="background: linear-gradient(135deg, #38bdf8, #0284c7); padding: 2rem; border-radius: 12px; color: white;">
+                    <h3 style="margin-bottom: 0.5rem; font-weight: 500;">Clients Inscrits</h3>
+                    <div style="font-size: 2.5rem; font-weight: 700;" id="stat-clients">--</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #a78bfa, #7c3aed); padding: 2rem; border-radius: 12px; color: white;">
+                    <h3 style="margin-bottom: 0.5rem; font-weight: 500;">Boutique (Mise à jour direct)</h3>
+                    <div style="font-size: 2.5rem; font-weight: 700;" id="stat-products">--</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #fbbf24, #d97706); padding: 2rem; border-radius: 12px; color: white;">
+                    <h3 style="margin-bottom: 0.5rem; font-weight: 500;">Sessions Actives (Direct)</h3>
+                    <div style="font-size: 2.5rem; font-weight: 700;" id="stat-sessions">--</div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 3rem; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem;">Dernières Connexions Historisées</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Adresse IP Sécurisée</th>
+                        <th>Appareil Détecté</th>
+                        <th>Heure Exacte d'Accès</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-recent-connections">
+                    <tr><td colspan="4">Chargement de la base de données...</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- PRODUITS (Explorateur et Grille) -->
+        <section id="products" class="panel-section">
+            <h2 class="section-title">Ajouter un Produit (Upload Média)</h2>
+            
+            <form id="add-product-form" enctype="multipart/form-data" style="background:#f8fafc; padding:2rem; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:3rem;">
+                <div class="form-grid">
+                    <div>
+                        <label class="admin-label">Titre du Produit</label>
+                        <input type="text" name="titre" class="admin-input" required placeholder="Ex: Ordinateur MGP 15">
+                    </div>
+                    <div>
+                        <label class="admin-label">Prix Modifié (FCFA)</label>
+                        <input type="text" name="prix" class="admin-input" required placeholder="Ex: 500 000 FCFA">
+                    </div>
+                    <div>
+                        <label class="admin-label">Catégorie Existante</label>
+                        <select name="categorie" id="cat-select" class="admin-input">
+                            <!-- Options Chargées depuis SQLite categories -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="admin-label">Ou Créer Nouvelle Catégorie</label>
+                        <div style="display:flex; gap:0.5rem;">
+                            <input type="text" id="new-cat-name" class="admin-input" placeholder="Ex: informatique">
+                            <button type="button" id="btn-add-cat" class="btn-sm btn-success" style="margin-top: 0.5rem;">Forcer</button>
+                        </div>
+                    </div>
+                    <div class="full-width">
+                        <label class="admin-label">Ligne d'accroche Courte</label>
+                        <input type="text" name="shortDesc" class="admin-input" required placeholder="Affichée sous la photo dans la boutique...">
+                    </div>
+                    <div class="full-width">
+                        <label class="admin-label">Description Longue (Détails Complets)</label>
+                        <textarea name="longDesc" class="admin-input" rows="4" required placeholder="Sera envoyé dans WhatsApp et dans le Pop-up complet..."></textarea>
+                    </div>
+                    <div>
+                        <label class="admin-label">Gestion de Stock Alertes</label>
+                        <select name="stock_status" class="admin-input">
+                            <option value="En stock">🟢 En Stock</option>
+                            <option value="Rupture">🔴 En Rupture</option>
+                            <option value="Sur commande">🟡 Sur Commande</option>
+                        </select>
+                    </div>
+                    
+                    <!-- L'explorateur pour le Gérant -->
+                    <div style="background: #e0f2fe; padding: 1.5rem; border-radius: 8px; border: 2px dashed #38bdf8;">
+                        <label class="admin-label" style="color: #0369a1; font-size:1.1rem; display:block;">🖼️ Photo de Couverture (Fichier Explorateur)</label>
+                        <p style="font-size:0.85rem; color:#0284c7; margin-bottom: 1rem;">Ouvrez l'explorateur pour charger une image JPEG ou PNG (Taille recommandée).</p>
+                        <input type="file" name="image_cover" accept="image/png, image/jpeg" required class="admin-input" style="background:white; border:none;">
+                    </div>
+                </div>
+                <button type="submit" id="btn-submit-product" class="btn-sm btn-success" style="margin-top: 1.5rem; font-size:1.2rem; padding: 1rem 2rem; width:100%; border-radius:8px;">Envoyer au Serveur & Publier</button>
+            </form>
+
+            <h3 style="color: #1e293b;">Grille des Produits Actuels</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Photo</th>
+                        <th>Titre</th>
+                        <th>Catégorie</th>
+                        <th>Stock</th>
+                        <th>👁️ Vues</th>
+                        <th>❤️ Likes</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-products-list">
+                    <!-- Rempli par AJAX depuis server.js -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SÉCURITÉ -->
+        <section id="security" class="panel-section">
+            <h2 class="section-title">Contrôle de Sécurité & Liste Globale des Clients</h2>
+            <p style="margin-bottom: 1rem; color:#64748b;">Sur cette page, vous pouvez bannir un utilisateur malveillant et lui couper l'accès net à la plateforme.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom & Prénoms</th>
+                        <th>Email Contact</th>
+                        <th>Autorisation (Statut)</th>
+                        <th>Action Rapide</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-users-list">
+                    <!-- Rempli par AJAX -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- CANDIDATURES -->
+        <section id="applications" class="panel-section">
+            <h2 class="section-title">Candidatures : Opérateurs Livraisons</h2>
+            <div id="admin-apps-list" style="display:flex; flex-direction:column; gap:1.5rem;">
+                <!-- Rempli par AJAX -->
+            </div>
+        </section>
+
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>

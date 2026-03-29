@@ -1,0 +1,323 @@
+/* Surcharges et compléments pour la page boutique (Soutient Styles.css) */
+
+.store-main {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    min-height: calc(100vh - 60px);
+}
+
+.store-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+.store-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.category-filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+/* Grille des produits */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    padding-bottom: 3rem;
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.15);
+}
+
+.product-img {
+    height: 200px;
+    background-color: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    object-fit: cover;
+    width: 100%;
+}
+
+.product-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.product-short-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    flex: 1; /* Pousse les boutons vers le bas */
+}
+
+.product-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-details {
+    flex: 1;
+}
+
+.btn-whatsapp-icon {
+    background: #25D366;
+    color: white;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: background 0.3s;
+    border: none;
+}
+
+.btn-whatsapp-icon:hover {
+    background: #1EBE5D;
+    color: white;
+}
+
+/* =========================================
+   MODALES (Popups) Détails et Paiement
+   ========================================= */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px); /* Beau flou autour de la popup */
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.modal-content {
+    background: var(--bg-color);
+    width: 90%;
+    max-width: 800px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+}
+
+.payment-content {
+    max-width: 500px;
+    padding: 2.5rem;
+    text-align: center;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--text-main);
+}
+
+.modal-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.modal-image-container {
+    flex: 1;
+    min-width: 300px;
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px 0 0 20px;
+}
+
+.modal-info {
+    flex: 1.5;
+    min-width: 300px;
+    padding: 2.5rem;
+}
+
+.modal-desc {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-whatsapp:hover {
+    background: #1EBE5D;
+    color: white;
+}
+
+/* Modal de Paiement / Modes (Mobile Money & Carte) */
+.payment-amount {
+    font-size: 1.25rem;
+    margin: 1rem 0 2rem;
+}
+
+.payment-amount strong {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.payment-methods {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pay-method-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.pay-method-btn:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+
+.method-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.orange-bg { background: #FF6600; }
+.mtn-bg { background: #FFCC00; color: black; }
+.moov-bg { background: #0056A3; }
+.card-bg { background: #475569; font-size: 1.8rem; }
+
+#payment-form-container {
+    background: rgba(248, 250, 252, 0.8);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+#selected-method-title {
+    margin-bottom: 1rem;
+    color: var(--primary);
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .modal-image-container {
+        border-radius: 20px 20px 0 0;
+        min-height: 200px;
+    }
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+}

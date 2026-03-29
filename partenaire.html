@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postuler - Devenir Partenaire Livreur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Styles.css">
+    <style>
+        .partner-container {
+            max-width: 700px;
+            margin: 6rem auto 3rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(31,38,135,0.1);
+            border: 1px solid var(--card-border);
+        }
+        .partner-header { text-align: center; margin-bottom: 3rem; }
+        .partner-header h2 { color: var(--primary); font-size: 2rem; margin-bottom: 1rem;}
+        .file-upload-help { font-size: 0.85rem; color: #64748b; margin-top: 0.5rem; display: block; }
+        .success-box {
+            display: none;
+            background: #dcfce7;
+            color: #166534;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #bbf7d0;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <header style="position: fixed; width: 100%;">
+        <h1>Marcketing Guy Partener</h1>
+        <nav>
+            <ul id="main-nav">
+                <li><a href="html.html">Accueil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="partner-container">
+            <div class="partner-header">
+                <h2>🛵 Devenir Livreur Indépendant</h2>
+                <p style="color: var(--text-muted); line-height: 1.6;">Rejoignez notre flotte de partenaires et générez des revenus en livrant nos produits e-commerce. Remplissez ce dossier pour que l'administration étudie votre profil.</p>
+            </div>
+
+            <div id="success-msg" class="success-box">
+                🎉 <strong>Félicitations !</strong><br>Votre dossier complet a bien été transmis sécuritairement.<br>Notre direction vous recontactera sous peu pour la suite.
+            </div>
+
+            <form id="partner-form" enctype="multipart/form-data">
+                <div style="display:flex; gap:1rem;">
+                    <div class="input-group" style="flex:1;">
+                        <label>Nom de Famille</label>
+                        <input type="text" name="nom" required placeholder="Ex: TRAORE">
+                    </div>
+                    <div class="input-group" style="flex:1;">
+                        <label>Prénoms</label>
+                        <input type="text" name="prenom" required placeholder="Ex: Seydou">
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:1rem;">
+                    <div class="input-group" style="flex:1;">
+                        <label>Date de Naissance</label>
+                        <input type="date" name="naissance" required>
+                    </div>
+                    <div class="input-group" style="flex:1;">
+                        <label>Lieu de Naissance</label>
+                        <input type="text" name="lieu" required placeholder="Ex: Abidjan">
+                    </div>
+                </div>
+                
+                <div class="input-group" style="margin-bottom: 2rem;">
+                    <label>Domicile Actuel</label>
+                    <input type="text" name="domicile" required placeholder="Ex: Riviera Palmeraie, Rue 12">
+                </div>
+
+                <div style="background: rgba(99,102,241,0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(99,102,241,0.2); margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.1rem;">Documents Obligatoires (Max 3 Mo par fichier)</h3>
+                    
+                    <div class="input-group" style="margin-bottom: 1.5rem;">
+                        <label style="font-weight: 600;">📁 Pièce d'Identité (CNIB ou Passeport)</label>
+                        <span class="file-upload-help">Veuillez regrouper le Recto et le Verso dans le même fichier PDF ou PNG bien lisible.</span>
+                        <input type="file" name="doc_cnib" accept="application/pdf, image/png, image/jpeg" required style="margin-top: 0.5rem; background: white;">
+                    </div>
+
+                    <div class="input-group">
+                        <label style="font-weight: 600;">🤳 Photo de votre Visage</label>
+                        <span class="file-upload-help">Une photo récente très claire de vous tenant votre CNIB près de votre visage, pour vérification.</span>
+                        <input type="file" name="photo_visage" accept="image/png, image/jpeg" required style="margin-top: 0.5rem; background: white;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem; border-radius: 12px;" id="submit-btn">Envoyer mon Dossier Sécurisé</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Marcketing Guy Partener Web.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('partner-form');
+            const submitBtn = document.getElementById('submit-btn');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitBtn.innerText = "Chiffrement et Envoi encours... ⏳";
+                submitBtn.disabled = true;
+
+                // L'objet FormData capte automatiquement le texte et les <input type="file">
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch('http://localhost:3000/api/applications', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+
+                    if(data.success) {
+                        document.getElementById('success-msg').style.display = 'block';
+                        form.style.display = 'none'; // Cacher le formulaire après succès
+                        window.scrollTo(0,0);
+                    } else {
+                        alert("Erreur refusée: " + data.message);
+                    }
+                } catch(err) {
+                    alert("⚠️ Erreur de connexion au serveur d'administration MGP.\n\nAssurez-vous que le gérant a bien allumé le 'node server.js'.");
+                    console.error(err);
+                } finally {
+                    submitBtn.innerText = "Erreur, réessayer"; // Si on revient ici, ça a planté, sinon formulait caché
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

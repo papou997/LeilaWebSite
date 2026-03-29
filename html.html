@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ma nouvelle Page</title>
+	<!-- Fontes modernes Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="Styles.css">
+</head>
+
+<body>
+	<header>
+		<h1>Marcketing Guy Partener</h1>
+		<nav>
+			<ul>
+				<li><a href="#accueil" class="acceuil">Accueil</a></li>
+				<li><a href="#propos" class="propos">À propos</a></li>
+				<li><a href="#contact" class="contact">Contact</a></li>
+				<li><a href="products.html" style="color: var(--primary); font-weight: bold;">🛍️ Boutique</a></li>
+			</ul>
+		</nav>
+	</header>	
+	
+	<main>
+		<!-- Section Accueil (Formulaires) -->
+		<section id="accueil" class="hero-section">
+			<div class="auth-container">
+				<div class="tabs">
+					<button id="tab-inscription" class="active">S'inscrire</button>
+					<button id="tab-connexion">Se Connecter</button>
+				</div>
+				
+				<!-- Formulaire d'inscription -->
+				<form class="formulaire" id="form-inscription">
+					<div class="form-header">
+						<h2>Créer un compte</h2>
+					</div>
+
+					<div class="input-group">
+						<label for="nom">Nom</label>
+						<input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+					</div>
+					
+					<div class="input-group">
+						<label for="prenom">Prénom</label>
+						<input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+					</div>
+					
+					<div class="input-group">
+						<label for="Email">Email</label>	
+						<input type="email" id="Email" name="Email" placeholder="nom@exemple.com" required>
+					</div>
+					
+					<div class="input-group">
+						<label for="mot_de_passe">Mot de passe</label>	
+						<input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Votre mot de passe" required>
+					</div>
+					
+					<div class="radio-group" id="raser">	
+						<span class="radio-title">Genre :</span>
+						<div class="radio-options">
+							<label for="male">
+								<input type="radio" id="male" name="choix" value="1" checked> Homme
+							</label>
+							
+							<label for="female">
+								<input type="radio" id="female" name="choix" value="2"> Femme
+							</label>
+							
+							<label for="autres">
+								<input type="radio" id="autres" name="choix" value="3"> Autre
+							</label>
+						</div>
+					</div>
+					
+					<div class="checkbox-group">
+						<input type="checkbox" id="condition1" name="conditions" value="accepte" required>
+						<label for="condition1">J'accepte les conditions d'utilisation</label>
+					</div>
+					
+					<div class="form-actions">
+						<button type="submit" id="send_button" class="btn btn-primary">S'inscrire</button>
+						<button type="reset" id="reset_button" class="btn btn-secondary">Effacer</button>
+					</div>
+				</form>	
+
+				<!-- Formulaire de Connexion (Caché par défaut) -->
+				<form class="formulaire" id="form-connexion" style="display: none;">
+					<div class="form-header">
+						<h2>Te Revoilà !</h2>
+					</div>
+					
+					<div class="input-group">
+						<label for="login-email">Email</label>	
+						<input type="email" id="login-email" name="Email" placeholder="nom@exemple.com" required>
+					</div>
+					
+					<div class="input-group">
+						<label for="login-password">Mot de passe</label>	
+						<input type="password" id="login-password" name="mot_de_passe" placeholder="Votre mot de passe" required>
+					</div>
+
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">Se connecter</button>
+					</div>
+				</form>
+			</div>
+		</section>
+
+		<!-- Section À Propos -->
+		<section id="propos" class="info-section">
+			<div class="content-container">
+				<h2>À propos de nous</h2>
+				<div class="info-text">
+					<p>Bienvenue chez <strong>Marcketing Guy Partener</strong>, votre allié stratégique pour propulser votre entreprise vers de nouveaux sommets.</p>
+					<p>Nous combinons créativité, analyse de données et expertise digitale pour concevoir des campagnes qui résonnent de manière percutante avec votre audience cible.</p>
+					<p>Notre mission ? Transformer votre vision en résultats mesurables et construire, ensemble, un succès durable sur le long terme.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Section Contact -->
+		<section id="contact" class="info-section bg-light">
+			<div class="content-container">
+				<h2>Contactez-nous</h2>
+				<p class="subtitle">Prêt à faire décoller votre projet ? N'hésitez pas à nous écrire ou à nous appeler. Nous serons ravis d'échanger avec vous.</p>
+				
+				<div class="contact-details">
+					<div class="contact-card">
+						<h3>✉️ Email</h3>
+						<!-- Vous pourrez changer cet email plus tard -->
+						<p><a href="mailto:contact@marcketingguy.com">contact@marcketingguy.com</a></p>
+					</div>
+					<div class="contact-card">
+						<h3>📞 Téléphone</h3>
+						<!-- Vous pourrez changer ce numéro plus tard -->
+						<p><a href="tel:+33123456789">+33 1 23 45 67 89</a></p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<p>&copy; 2025 Marcketing Guy Partener Web. Tous droits réservés.</p>
+	</footer>
+	
+	<script src="java.js"></script>
+</body>
+</html>

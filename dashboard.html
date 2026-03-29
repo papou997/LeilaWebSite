@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mes Informations - Espace Sécurisé</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="Styles.css">
+    <style>
+        body { flex-direction: row; }
+        .sidebar { width: 280px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border-right: 1px solid var(--card-border); height: 100vh; padding: 2rem 1rem; display: flex; flex-direction: column; position: fixed; box-shadow: 2px 0 10px rgba(0,0,0,0.05); }
+        .sidebar h2 { color: var(--primary); margin-bottom: 2rem; text-align: center; font-size: 1.5rem; font-weight: 700; }
+        .sidebar nav ul { list-style: none; display: flex; flex-direction: column; gap: 1rem; padding: 0; margin: 0; flex:1; }
+        .sidebar nav a { display: block; padding: 1.25rem 1rem; border-radius: 12px; color: var(--text-main); transition: all 0.3s ease; text-align: left; font-weight: 500; text-decoration: none; }
+        .sidebar nav a:hover, .sidebar nav a.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); transform: translateX(5px); }
+        .sidebar nav a:after { display: none; }
+        
+        .logout-container { margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--card-border); }
+        .logout-btn { display: block; width: 100%; text-align: center; text-decoration: none; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444; padding: 1rem; border-radius: 12px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .logout-btn:hover { background: #ef4444; color: white; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+        
+        .dashboard-content { margin-left: 280px; flex: 1; padding: 2rem; min-height: 100vh; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); padding: 1.5rem 2rem; border-radius: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 2rem; border: 1px solid var(--card-border); }
+        .user-profile { display: flex; align-items: center; gap: 1.5rem; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; display:flex; justify-content:center; align-items:center; font-weight: bold; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(99,102,241,0.4); }
+        
+        .connections-list { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid var(--card-border); padding: 2rem; margin-top: 2rem; }
+        .connections-list h3 { color: var(--text-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid var(--primary); padding-bottom: 1rem; display: inline-block;}
+        .conn-item { padding: 1.5rem 1rem; border-bottom: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; }
+        .conn-item:last-child { border-bottom: none; }
+        .conn-device { font-weight: 600; color: var(--text-main); margin-bottom: 0.3rem;}
+        .conn-time { color: var(--text-muted); font-size: 0.95rem; }
+        .conn-ip { font-size: 0.85rem; background: #e2e8f0; padding: 0.3rem 0.6rem; border-radius: 8px; font-weight: 500;}
+        
+        @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; padding: 1rem; box-shadow: none; border-bottom: 1px solid var(--card-border); } .dashboard-content { margin-left: 0; } }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>🔒 Profil Client</h2>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">👤 Mes Informations</a></li>
+                <li><a href="products.html" style="color: var(--primary); font-weight: bold;">🛍️ Aller à la Boutique</a></li>
+                <li><a href="#">📦 Mes Commandes</a></li>
+            </ul>
+        </nav>
+        <div class="logout-container">
+             <button class="logout-btn" id="btn-logout">Se Déconnecter de cet appareil</button>
+        </div>
+    </aside>
+
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div>
+                <h1 style="color: var(--text-main); font-size: 1.75rem; margin-bottom: 0.25rem;">Ravi de vous revoir, <span id="user-name">!</span> 👋</h1>
+                <p style="color: var(--text-muted);">Gérez vos informations personnelles et vérifiez la sécurité de votre compte.</p>
+            </div>
+            <div class="user-profile">
+                <!-- Avatar Dynamique Client -->
+                <div class="avatar" id="user-avatar">U</div>
+            </div>
+        </header>
+        
+        <div class="connections-list">
+            <h3>🛡️ Historique Sécurité (Vos Appareils Connectés)</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size:0.95rem; line-height: 1.5;">Vérifiez ci-dessous si des appareils suspects se sont connectés à votre compte. En cas de doute ou d'activité non reconnue au niveau des adresses IP ou des pays, vous pouvez nous contacter.</p>
+            
+            <div id="connections-container">
+                <p style="color:var(--primary); font-weight:bold;">Interrogation du serveur de sécurité... ⏳</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="java.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const userStr = localStorage.getItem('user');
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                document.getElementById('user-name').textContent = user.prenom + ' ' + user.nom;
+                document.getElementById('user-avatar').textContent = user.prenom.charAt(0).toUpperCase();
+
+                // Fetch real history
+                try {
+                    const response = await fetch(`http://localhost:3000/api/client/connections/${user.id}`);
+                    const data = await response.json();
+                    
+                    const container = document.getElementById('connections-container');
+                    container.innerHTML = "";
+                    if(data.success && data.connections.length > 0) {
+                        data.connections.forEach(c => {
+                            const dateStr = new Date(c.login_time).toLocaleString('fr-FR');
+                            const status = c.is_active === 1 
+                                            ? '<span style="background:#dcfce7; color:#166534; padding:2px 8px; border-radius:10px; font-size:0.8rem; margin-left:10px;">Session Active</span>' 
+                                            : '<span style="background:#fee2e2; color:#b91c1c; padding:2px 8px; border-radius:10px; font-size:0.8rem; margin-left:10px;">Clôturée / Expirée</span>';
+                            
+                            container.innerHTML += `
+                                <div class="conn-item">
+                                    <div>
+                                        <div class="conn-device">💻 Opérateur: ${c.device_type} - ${c.device_brand} ${status}</div>
+                                        <div class="conn-time">🕒 Heure de connexion: <strong>${dateStr}</strong> &nbsp; | &nbsp; 📍 Pays: ${c.country}</div>
+                                    </div>
+                                    <div class="conn-ip" title="Votre Adresse IP">IP: ${c.ip_address}</div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        container.innerHTML = "<p>Aucun historique trouvé sécurisé pour le moment.</p>";
+                    }
+                } catch(e) {
+                    document.getElementById('connections-container').innerHTML = "<p>⚠️ Le Serveur Node.js semble déconnecté. Lancez le serveur.</p>";
+                }
+            }
+
+            document.getElementById('btn-logout').addEventListener('click', () => {
+                localStorage.removeItem('user');
+                localStorage.removeItem('connection_id');
+                window.location.href = 'html.html';
+            });
+        });
+    </script>
+</body>
+</html>
