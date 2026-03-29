@@ -32,3 +32,28 @@ Vous devriez voir apparaitre un message de confirmation dans votre terminal (par
 🌐 Voir le résultat :
 Ouvrez votre navigateur internet (Chrome, Edge, Safari...) et tapez l'adresse suivante dans la barre de recherche :
 👉 http://localhost:3000 (ou 8080 selon la configuration écrite dans le message du terminal).
+
+
+
+
+Une fois que votre serveur est lancé avec la commande node server.js (et qu'il affiche "🚀 Serveur centralisé démarré avec succès sur http://localhost:3000"), il ne faut plus double-cliquer sur les fichiers HTML dans votre dossier.
+
+À la place, vous allez directement dans votre navigateur (Chrome, Edge, Safari...) et vous tapez l'adresse locale associée au fichier que vous voulez ouvrir. C'est indispensable pour que le site puisse communiquer avec la base de données !
+
+Voici les liens que vous devez taper ou copier-coller dans votre navigateur :
+
+👤 1. Pour l'espace Client (Inscription et Connexion)Tapez cette adresse dans le navigateur : 👉 http://localhost:3000/html.html (C'est la porte d'entrée pour vos utilisateurs classiques).
+
+🛍️ 2. Pour l'espace Boutique / Produits
+Tapez cette adresse : 👉 http://localhost:3000/products.html
+
+🔐 3. Pour l'espace Gérant / Admin (Backoffice)
+Ne passez pas par les pages clients ! Accédez directement au portail secret du gérant via cette adresse : 👉 http://localhost:3000/admin_login.html (Une fois connecté ici en tant qu'admin, le système vous redirigera vers 
+
+admin_dashboard.html
+).
+
+🤝 4. Pour la page de recrutement des Partenaires/Livreurs
+Tapez cette adresse : 👉 http://localhost:3000/partenaire.html
+
+le projet n'est pas encore achever avec le labs de temps c'etais pas suffisants pour le terminer ce n'est qu'une simulation mais ca fonction 
