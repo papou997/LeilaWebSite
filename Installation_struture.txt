@@ -1,0 +1,34 @@
+🚀 Guide pour installer et lancer le projet localement (Windows)
+1. Prérequis (À installer si vous ne les avez pas)
+Pour faire fonctionner ce projet, votre machine a besoin de deux outils indispensables : Git et Node.js (qui inclut npm).
+
+Installer Git : Permet de télécharger le projet. S'il n'est pas sur votre PC, allez sur le navigateur et téléchargez Git pour Windows (choisissez la version 64-bit Git for Windows Setup). Installez-le en gardant les options par défaut.
+Installer Node.js & npm : Permet de faire tourner le serveur. Téléchargez Node.js (choisissez la version recommandée, généralement LTS, pour Windows 64-bit) et installez-le.2. Ouvrir le Terminal (Invite de commandes)
+Appuyez sur les touches Windows + R de votre clavier. Une petite fenêtre "Exécuter" s'ouvre en bas à gauche de votre écran.
+Tapez cmd dans le champ de texte, puis appuyez sur Entrée.
+Une fenêtre noire (le terminal) va s'afficher.
+(Optionnel) Pour vérifier que l'installation des outils s'est bien passée, tapez git --version puis npm -v. Si des numéros de version s'affichent, tout est parfait ! Si la commande n'est pas reconnue, redémarrez votre PC ou revoyez l'installation.
+
+3. Télécharger (Cloner) le projet
+Dans le terminal que vous venez d'ouvrir, déplacez-vous sur votre Bureau pour y stocker le projet :
+cd Desktop
+(Note : Si la commande précédente donne une erreur, essayez plutôt cd Bureau)
+
+Ensuite, téléchargez le dossier du projet en tapant :git clone <LIEN_DU_PROJET_GIT>
+ Attendez quelques secondes la fin du téléchargement).
+
+4. Installer les dépendances
+Déplacez-vous maintenant à l'intérieur du dossier que vous venez de télécharger :cd le_nom_du_dossier
+(Remplacez le_nom_du_dossier par le vrai nom du projet).
+
+Installez tous les paquets nécessaires au fonctionnement du serveur :npm install
+(Patientez environ 10 à 15 secondes pour que le téléchargement et l'installation de toutes les dépendances se terminent).
+
+5. Démarrer le Serveur
+Il ne reste plus qu'à lancer l'application :node server.js
+✅ Résultat attendu :
+Vous devriez voir apparaitre un message de confirmation dans votre terminal (par exemple : "Le serveur est bien lancé et à l'écoute sur le port 3000").
+
+🌐 Voir le résultat :
+Ouvrez votre navigateur internet (Chrome, Edge, Safari...) et tapez l'adresse suivante dans la barre de recherche :
+👉 http://localhost:3000 (ou 8080 selon la configuration écrite dans le message du terminal).
