@@ -14,7 +14,7 @@ Dans le terminal que vous venez d'ouvrir, déplacez-vous sur votre Bureau pour y
 cd Desktop
 (Note : Si la commande précédente donne une erreur, essayez plutôt cd Bureau)
 
-Ensuite, téléchargez le dossier du projet en tapant :git clone <LIEN_DU_PROJET_GIT>
+Ensuite, téléchargez le dossier du projet en tapant :git clone https://github.com/papou997/LeilaWebSite.git
  Attendez quelques secondes la fin du téléchargement).
 
 4. Installer les dépendances
